@@ -1,0 +1,5 @@
+<ul fxLayout="row wrap"  fxLayoutAlign="left">
+    @for (p of products; track p.id) {
+    <app-product [product]="p"></app-product>
+    }
+</ul>
