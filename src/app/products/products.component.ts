@@ -11,6 +11,7 @@ import { FormsModule, NgModel  } from '@angular/forms';
 import {MatListModule} from '@angular/material/list'
 import { FilterPipe } from "../pipe/filter.pipe"; 
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-products',
@@ -26,23 +27,25 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatListModule,
     FilterPipe,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
 ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
+  selected = 'All';
   products: any[] = [];
 
   constructor(private ApiDataService: ApiDataService){}
 
   ngOnInit() : void{
-    this.ApiDataService.dataForProducts().subscribe((data) => 
-      {
-        // console.log(data)
-        this.products = Object.values(data)[0] // with this we can get only the main data 
-
-      }  )  
+    this.ApiDataService.product$.subscribe((data) => {
+      if (data !=null){
+        console.log(data)
+        this.products = Object.values(data)[0] as any // in this we have to provide the type or it wont work
+      }
+    })
   }
   
   @ViewChild('searchbar') searchbar!: ElementRef;
@@ -58,6 +61,10 @@ export class ProductsComponent {
     this.searchText = '';
     this.toggleSearch = false;
   }
- 
+  
+  onSelectionChange(event: any): void {
+    console.log(event.value)
+    this.ApiDataService.setSelectedValue(event.value);
+  }
 
 }
