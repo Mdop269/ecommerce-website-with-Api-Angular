@@ -1,4 +1,4 @@
-<ul fxLayout="row wrap"  fxLayoutAlign="left">
+<ul fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="16px grid" fxLayoutAlign="space-around center">
     @for (p of products; track p.id) {
     <app-product [product]="p"></app-product>
     }
