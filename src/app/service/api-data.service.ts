@@ -15,17 +15,21 @@ export class ApiDataService {
     return this.product.asObservable(); 
   }
 
+  private productDetails = new BehaviorSubject<any | null>(null);
+  get productDetails$(): Observable<string | null> {
+    return this.productDetails.asObservable(); 
+  }
+
   constructor(private http:HttpClient) {
     this.fetchProductData()
    }
 
   // in this function we are getting the launches data and sending this data  to the component 
-  dataForProducts()
-  {
-    const url = `https://dummyjson.com/${this.selectedValue}`;
-    console.log(this.http.get(url))
-    return this.http.get(url);
-  }
+  // dataForProducts()
+  // {
+  //   const url = `https://dummyjson.com/${this.selectedValue}`;
+  //   return this.http.get(url);
+  // }
 
   fetchProductData() {
     const url = `https://dummyjson.com/${this.selectedValue}`;
@@ -42,5 +46,9 @@ export class ApiDataService {
   setSelectedValue(CategoryValue : any){
     this.selectedValue = CategoryValue;
     this.fetchProductData()
+  }
+
+  productDetail(product:any){
+    this.productDetails.next(product)
   }
 }

@@ -2,24 +2,26 @@ import { Component, Input } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { ApiDataService } from '../service/api-data.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   imports: [
     MatCardModule,
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent {
   @Input() product: any;
-  imageUrl :string = "";
 
-  Arr = Array;
-  Math = Math
+  constructor(private ApiDataService: ApiDataService){
+
+  }
   getDiscountedPrice(product:any){
     const totalValue = product.price * ( (100 - product.discountPercentage ) / 100)
     return totalValue.toFixed(2) // wuth this we can decide how many decimal we want to show
@@ -28,6 +30,10 @@ export class ProductComponent {
   getRating(index: number): boolean {
     
       return index < Math.round(this.product.rating);
+  }
+
+  productDetail(product:any){
+    this.ApiDataService.productDetail(product)
   }
 
 }

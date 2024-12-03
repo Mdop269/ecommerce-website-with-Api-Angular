@@ -36,22 +36,20 @@ import {MatSelectModule} from '@angular/material/select';
 export class ProductsComponent {
   selected = 'All';
   products: any[] = [];
+  searchText = '';
+  toggleSearch: boolean = false;
+
+  @ViewChild('searchbar') searchbar!: ElementRef;
 
   constructor(private ApiDataService: ApiDataService){}
 
   ngOnInit() : void{
     this.ApiDataService.product$.subscribe((data) => {
       if (data !=null){
-        console.log(data)
         this.products = Object.values(data)[0] as any // in this we have to provide the type or it wont work
       }
     })
   }
-  
-  @ViewChild('searchbar') searchbar!: ElementRef;
-  searchText = '';
-
-  toggleSearch: boolean = false;
 
   openSearch() {
     this.toggleSearch = true;
@@ -63,8 +61,9 @@ export class ProductsComponent {
   }
   
   onSelectionChange(event: any): void {
-    console.log(event.value)
     this.ApiDataService.setSelectedValue(event.value);
   }
+
+
 
 }
