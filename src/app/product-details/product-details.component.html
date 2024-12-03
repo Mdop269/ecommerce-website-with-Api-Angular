@@ -1,1 +1,63 @@
-<p>product-details works!</p>
+<div class="product-container">
+    <!-- Carousel Section -->
+    <div class="carousel-container">
+      <p-carousel
+        *ngIf="productDetails.images.length > 1"
+        [value]="productDetails.images"
+        [numVisible]="1"
+        [numScroll]="1"
+        [autoplayInterval]="3000"
+        orientation="horizontal"
+        verticalViewPortHeight="500px">
+        <ng-template let-image pTemplate="item">
+          <img
+            src="{{ image }}"
+            [alt]="productDetails.title"
+            class="carousel-image"
+          />
+        </ng-template>
+      </p-carousel>
+  
+      <!-- Display a static image if only one image is available -->
+      <img *ngIf="productDetails.images.length === 1" 
+           src="{{ productDetails.images[0] }}" 
+           [alt]="productDetails.title" 
+           class="carousel-image" />
+    </div>
+  
+    <!-- Product Details Section -->
+    <div class="product-details-container">
+        <div class="product-header">
+          <h2>{{ productDetails.title }}</h2>
+        </div>
+        <div class="product-info">
+          <p>{{ productDetails.description }}</p>
+          <div class="price">
+            <span class="current-price">${{ productDetails.price }}</span>
+            <span class="original-price" style="text-decoration: line-through;">${{ (productDetails.price * (1 - productDetails.discountPercentage / 100)).toFixed(2) }}</span>
+            <span class="discount-label">Save {{ productDetails.discountPercentage }}%</span>
+          </div>
+          <div class="stock">
+            <span>Stock: {{ productDetails.stock }}</span>
+          </div>
+          <div class="brand">
+            <span>Brand: {{ productDetails.brand }}</span>
+          </div>
+        </div>
+        <div class="product-specs">
+          <h3>Product Specifications</h3>
+          <ul>
+            <li>Weight: {{ productDetails.weight }}g</li>
+            <li>Dimensions: {{ productDetails.dimensions.width }} x {{ productDetails.dimensions.height }} x {{ productDetails.dimensions.depth }}</li>
+            <li>Volume: {{ calculateVolume(productDetails.dimensions) }} cm³</li>
+            <li>Tags:</li>
+            <ul>
+              <li *ngFor="let tag of productDetails.tags">{{ tag }}</li>
+            </ul>
+          </ul>
+        </div>
+        <button mat-flat-button (click)="addToCart()">Add to Cart</button>
+      </div>
+  </div>
+  
+  

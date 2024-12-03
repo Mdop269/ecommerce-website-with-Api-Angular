@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ApiDataService } from '../service/api-data.service';
 import { RouterModule } from '@angular/router';
+import { TagModule } from 'primeng/tag'
+import { FormsModule, NgModel  } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +13,9 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     CommonModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    TagModule,
+    FormsModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
@@ -35,5 +39,5 @@ export class ProductComponent {
   productDetail(product:any){
     this.ApiDataService.productDetail(product)
   }
-
+  
 }
