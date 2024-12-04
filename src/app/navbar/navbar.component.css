@@ -1,3 +1,16 @@
-.spacer {
-    flex: 1 1 auto;
-  }
+/* header.component.css */
+.navbar {
+  padding: 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.navbar-nav {
+  font-size: 1.2rem;
+}
+
+.nav-item {
+  margin-right: 1rem;
+}

@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     TagModule,
     FormsModule,
-    NgbCarousel,
     
   ],
   templateUrl: './product-details.component.html',
@@ -45,19 +44,19 @@ export class ProductDetailsComponent {
     });
     this.responsiveOptions = [
       {
-          breakpoint: '1400px',
-          numVisible: 3,
-          numScroll: 3
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 1
       },
       {
-          breakpoint: '1220px',
-          numVisible: 2,
-          numScroll: 2
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 1
       },
       {
-          breakpoint: '1100px',
-          numVisible: 1,
-          numScroll: 1
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
       }
     ];
   }
@@ -68,18 +67,19 @@ export class ProductDetailsComponent {
   calculateVolume(dimensions : any) {
     return (dimensions.width * dimensions.height * dimensions.depth).toFixed(2);
   }
+
   getSeverity(status: string) {
     switch (status) {
-        case 'INSTOCK':
-            return 'success';
-        case 'LOWSTOCK':
-            return 'warning';
-        case 'OUTOFSTOCK':
-            return 'danger';
-        default:
-            return undefined;
+      case 'In Stock':
+        return 'success';
+        case 'Low Stock':
+          return 'warning';
+      case 'Out of Stock':
+        return 'danger';
+      default:
+        return 'info';
     }
-  } 
+  }
   
 
 }

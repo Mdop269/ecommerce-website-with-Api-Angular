@@ -13,6 +13,7 @@
         <!-- Inventory Status -->
         <p-tag
           [value]="product.availabilityStatus"
+          [severity]="getSeverity(product.availabilityStatus)"
           class="absolute"
           [ngStyle]="{'background-color': 'lightyellow', 'left.px': 5, 'top.px': 5 }"
         />

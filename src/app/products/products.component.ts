@@ -171,7 +171,7 @@ export class ProductsComponent {
 
   // Update the limit and reset skip (go back to the first page when the page size is changed)
   onPageSizeChange(newLimit: any): void {
-    this.limit = Number(newLimit);
+    this.limit = Number(newLimit); // need to convert this dont know how ngmodel works but it making this a string 
     this.skip = 0; // Reset to the first page
     console.log(this.limit)
     this.ApiDataService.setLimitAndSkip(this.limit, this.skip);

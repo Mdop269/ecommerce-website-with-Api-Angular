@@ -40,4 +40,16 @@ export class ProductComponent {
     this.ApiDataService.productDetail(product)
   }
   
+  getSeverity(status: string) {
+    switch (status) {
+      case 'In Stock':
+        return 'success';
+        case 'Low Stock':
+          return 'warning';
+      case 'Out of Stock':
+        return 'danger';
+      default:
+        return 'info';
+    }
+  }
 }

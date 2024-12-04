@@ -1,5 +1,6 @@
 <div class="product-container">
     <!-- Carousel Section -->
+     <!--dont forget to add circular or it will show a bad circle and showindicitaror to true also   -->
     <div class="carousel-container">
       <p-carousel
         *ngIf="productDetails.images.length > 1"
@@ -8,7 +9,9 @@
         [numScroll]="1"
         [autoplayInterval]="3000"
         orientation="horizontal"
-        verticalViewPortHeight="500px">
+        verticalViewPortHeight="500px"
+        [circular]="false"
+        [showIndicators]="true">
         <ng-template let-image pTemplate="item">
           <img
             src="{{ image }}"
@@ -65,7 +68,9 @@
         [value]="products" 
         [numVisible]="3" 
         [numScroll]="1" 
-        [responsiveOptions]="responsiveOptions">
+        [responsiveOptions]="responsiveOptions"
+        [circular]="false"
+        [showIndicators]="true">
             <ng-template let-product pTemplate="item">
                 <div class="border-1 surface-border border-round m-2 p-3">
                     <div class="mb-3">
@@ -78,7 +83,7 @@
                                 [value]="product.availabilityStatus" 
                                 [severity]="getSeverity(product.availabilityStatus)" 
                                 class="absolute" 
-                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                [ngStyle]="{ 'left.px': 50, 'top.px': 5 }" />
                         </div>
                     </div>
                     <div class="mb-3 font-medium">
