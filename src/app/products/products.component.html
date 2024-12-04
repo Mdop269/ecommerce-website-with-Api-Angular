@@ -1,53 +1,50 @@
-<div class="eaton mat-typography" style="overflow-x:hidden;"  >
-    
+<div class="eaton mat-typography" style="overflow-x: hidden;">
   <mat-toolbar class="search-block mat-elevation-z4" [class.active]="toggleSearch">
-    <mat-toolbar-row fxLayout="row" style="padding: 0 5px;">
-      <button class="search-icon" mat-icon-button >
-        <mat-icon>search</mat-icon>
-      </button>
-      <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
-      <button mat-button mat-icon-button (click)="searchClose()">
-        <mat-icon>close</mat-icon>
-      </button> 
+    <mat-toolbar-row fxLayout="row" style="padding: 0 350px;">
+      <mat-form-field>
+        <mat-icon color="primary" matPrefix>search</mat-icon>
+        <input matInput class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>Select an option</mat-label>
-        <mat-select [(value)]="selected" (selectionChange)="onSelectionChange($event)">
-          <mat-option value="products">All</mat-option>
-          <mat-option value="products/category/smartphones">SmartPhone</mat-option>
-          <mat-option value="products/category/laptops">Laptops</mat-option>
-          <mat-option value="products/category/vehicle">Vehicles</mat-option>
-          <mat-option value="products/category/beauty">Beauty</mat-option>
-          <mat-option value="products/category/fragrances">Fragrances</mat-option>
-          <mat-option value="products/category/furniture">furniture</mat-option>
-          <mat-option value="products/category/groceries">Groceries</mat-option>
-          <mat-option value="products/category/home-decoration">Home decoration</mat-option>
-          <mat-option value="products/category/kitchen-accessories">Kitchen accessories</mat-option>
-          <mat-option value="products/category/mens-shirts">Mens shirts</mat-option>
-          <mat-option value="products/category/mens-shoes">Mens shoes</mat-option>
-          <mat-option value="products/category/mens-watches">Mens watches</mat-option>
-          <mat-option value="products/category/mobile-accessories">Mobile accessories</mat-option>
-          <mat-option value="products/category/motorcycle">Motorcycle</mat-option>
-          <mat-option value="products/category/skin-care">Skin care</mat-option>
-          <mat-option value="products/category/sports-accessories">Sports accessories</mat-option>
-          <mat-option value="products/category/sunglasses">Sunglasses</mat-option>
-          <mat-option value="products/category/tablets">Tablets</mat-option>
-          <mat-option value="products/category/tops">Tops</mat-option>
-          <mat-option value="products/category/vehicle">Vehicle</mat-option>
-          <mat-option value="products/category/womens-bags">Womens bags</mat-option>
-          <mat-option value="products/category/womens-dresses">Womens dresses</mat-option>
-          <mat-option value="products/category/womens-jewellery">Womens jewellery</mat-option>
-          <mat-option value="products/category/womens-shoes">Womens shoes</mat-option>
-          <mat-option value="products/category/womens-watches">Womens watches</mat-option>
+        <mat-select (selectionChange)="onSelectionChange($event)">
+          <mat-option value="https://dummyjson.com/products">All</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.url">{{ category.name }}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div class="example-button-row">
+        <button mat-flat-button (click)="searchClose()">Reset</button>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 
+  <div class="pagination-controls">
+    <button mat-flat-button (click)="prevPage()" [disabled]="skip === 0">Previous</button>
+    <button mat-flat-button (click)="nextPage()" [disabled]="skip + limit >= totalProducts" >Next</button>
+  </div>
+  
+  <div class="page-info">
+    <span>{{ getCurrentPageRange() }} of {{ totalProducts }}</span>
+    <span>Page {{ getCurrentPageNumber() }} of {{ getTotalPages() }}</span>
+  </div>
+
+  <!-- Page size selector -->
+  <div class="page-size-selector">
+    <label for="pageSize">Items per page:</label>
+    <select id="pageSize" [(ngModel)]=limit (change)="onPageSizeChange(limit)">
+      <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+    </select>
+  </div>
+
   <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="16px" fxLayoutAlign="space-around center">
+    <!-- fxFlex="calc(33.33% - 16px)" this is use for giving maaximum showing of product -->
     <ul *ngFor="let p of products | filter: searchText">
-      <app-product [product]="p"></app-product>                     
+      <app-product [product]="p"></app-product>
     </ul>
   </div>
+
   <div *ngIf="(products | filter: searchText).length === 0">
     <mat-icon mat-list-avatar>error</mat-icon>
     <div mat-line>0 results</div>

@@ -7,8 +7,10 @@ import { BehaviorSubject, catchError, Observable } from 'rxjs';
 })
 export class ApiDataService {
 
-  urlForProduct : string = "https://dummyjson.com/products/search?q=phone" 
-  selectedValue : string = 'products'
+  urlForCategory : string = "https://dummyjson.com/products/categories" 
+  selectedValue : any = "https://dummyjson.com/products" ;
+  limit : number = 10;
+  skip : number = 0
 
   private product = new BehaviorSubject<any | null>(null);
   get product$(): Observable<string | null> {
@@ -25,15 +27,16 @@ export class ApiDataService {
    }
 
   // in this function we are getting the launches data and sending this data  to the component 
-  // dataForProducts()
-  // {
-  //   const url = `https://dummyjson.com/${this.selectedValue}`;
-  //   return this.http.get(url);
-  // }
+  dataForCategory()
+  {
+    return this.http.get(this.urlForCategory);
+  }
 
   fetchProductData() {
-    const url = `https://dummyjson.com/${this.selectedValue}`;
-    this.http.get(url).pipe(
+    const url = this.selectedValue;
+    const limit = this.limit
+    const skip = this.skip
+    this.http.get<any>(`${url}?limit=${limit}&skip=${skip}`).pipe(
       catchError(error => {
         console.error('Error fetching the data', error);
         return [null];  // Return null in case of error
@@ -45,6 +48,13 @@ export class ApiDataService {
   
   setSelectedValue(CategoryValue : any){
     this.selectedValue = CategoryValue;
+    this.fetchProductData()
+  }
+
+  setLimitAndSkip(limit : number , skip : number){
+    this.limit = limit ;
+    this.skip = skip ;
+    console.log(this.skip,this.limit)
     this.fetchProductData()
   }
 

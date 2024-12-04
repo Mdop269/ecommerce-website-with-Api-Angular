@@ -63,3 +63,7 @@ For more information on using the Angular CLI, including detailed command refere
 ref : 
     https://stackblitz.com/edit/angular-searchbar?file=app%2Fapp.component.ts
     (this is better for search )
+
+    https://primeng.org/carousel
+    (it is way better for using slide and all )
+

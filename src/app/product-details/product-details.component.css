@@ -95,4 +95,22 @@
   
   
   
+/* review */
+/* reviews.component.css */
+.reviews {
+    max-width: 800px;
+    margin: 40px auto;
+  }
   
+  .review {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .review span {
+    font-weight: bold;
+  }
+
+  /* checking */
