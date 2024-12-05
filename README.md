@@ -65,4 +65,8 @@ ref :
     (this is better for search )
 
     https://primeng.org/carousel
+<<<<<<< HEAD
     (it is way better for using slide and all )
+=======
+    (it is way better for using slide and all )
+>>>>>>> 3a53175ba9fe6e602c4c3d2b90985259b4cc74b7
