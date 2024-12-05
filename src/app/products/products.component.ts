@@ -28,7 +28,6 @@ import { ChangeDetectorRef } from '@angular/core';
     MatIconModule,
     FormsModule,
     MatListModule,
-    FilterPipe,
     MatToolbarModule,
     MatFormFieldModule,
     MatSelectModule,
