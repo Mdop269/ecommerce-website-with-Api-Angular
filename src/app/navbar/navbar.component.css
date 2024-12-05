@@ -1,16 +1,58 @@
-/* header.component.css */
 .navbar {
-  padding: 1rem;
+  background-color: #3f51b5; /* Primary color */
+  color: white;
+  padding-block-start: 20px;
 }
 
-.navbar-brand {
-  font-size: 1.5rem;
+.brand {
+  padding-block-end: 25px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.navbar-nav {
-  font-size: 1.2rem;
+mat-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav-item {
-  margin-right: 1rem;
+mat-form-field {
+  margin-right: 16px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.search-control {
+  align-items: center;
+}
+
+/* with this we are ensuring the suggestions appear with an image and info side by side */
+.product-suggestion {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 40px;  
+  height: 40px;
+  border-radius: 4px;
+  margin-right: 10px;  
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.product-info p {
+  font-size: 12px;
+  margin: 0;
+  color: #555;
 }

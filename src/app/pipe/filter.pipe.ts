@@ -7,13 +7,13 @@ import { ApiDataService } from '../service/api-data.service';
 })
 export class FilterPipe implements PipeTransform {
   
-  transform(products: any[], searchText: string): any[] {
-    if(!products) return [];
-    if(!searchText) return products;
-searchText = searchText.toLowerCase();
-return products.filter( it => {
-      return it.title.toLowerCase().includes(searchText) || it.category.toLowerCase().includes(searchText);
-    });
-   }
+  transform(allProducts: any[], searchText: string): any[] {
+    if(!allProducts) return [];
+    if(!searchText) return allProducts;
+    searchText = searchText.toLowerCase();
+    return allProducts.filter( it => {
+          return it.title.toLowerCase().includes(searchText) || it.category.toLowerCase().includes(searchText);
+        });
+      }
 
-}
+} 

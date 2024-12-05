@@ -28,7 +28,7 @@ export class ProductComponent {
   }
   getDiscountedPrice(product:any){
     const totalValue = product.price * ( (100 - product.discountPercentage ) / 100)
-    return totalValue.toFixed(2) // wuth this we can decide how many decimal we want to show
+    return totalValue.toFixed(2) // with this we can decide how many decimal we want to show
   }
   
   getRating(index: number): boolean {

@@ -22,14 +22,24 @@ export class ApiDataService {
     return this.productDetails.asObservable(); 
   }
 
+  private newSearch = new BehaviorSubject<string>("");
+  get newSearch$(): Observable<string> {
+    return this.newSearch.asObservable(); 
+  }
+  
   constructor(private http:HttpClient) {
     this.fetchProductData()
-   }
+  }
 
   // in this function we are getting the launches data and sending this data  to the component 
   dataForCategory()
   {
     return this.http.get(this.urlForCategory);
+  }
+
+  dataForAllProduct()
+  {
+    return this.http.get('https://dummyjson.com/products?limit=500');
   }
 
   fetchProductData() {
@@ -45,8 +55,9 @@ export class ApiDataService {
       this.product.next(data);  // Store the fetched data in the subject
     });
   }
-  
+
   setSelectedValue(CategoryValue : any){
+    
     this.selectedValue = CategoryValue;
     this.fetchProductData()
   }
@@ -54,11 +65,16 @@ export class ApiDataService {
   setLimitAndSkip(limit : number , skip : number){
     this.limit = limit ;
     this.skip = skip ;
-    console.log(this.skip,this.limit)
     this.fetchProductData()
   }
 
   productDetail(product:any){
     this.productDetails.next(product)
   }
+
+  onSearch(newText : string){
+    this.newSearch.next(newText)
+  }
+
+
 }

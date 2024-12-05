@@ -68,10 +68,12 @@
         [value]="products" 
         [numVisible]="3" 
         [numScroll]="1" 
+        [autoplayInterval]="2000"
         [responsiveOptions]="responsiveOptions"
         [circular]="false"
         [showIndicators]="true">
             <ng-template let-product pTemplate="item">
+              <mat-card class="product-card" (click)="productDetail(product)">
                 <div class="border-1 surface-border border-round m-2 p-3">
                     <div class="mb-3">
                         <div class="relative mx-auto">
@@ -95,6 +97,7 @@
                         </div>
                     </div>
                 </div>
+              </mat-card>
             </ng-template>
     </p-carousel>
 </div> 

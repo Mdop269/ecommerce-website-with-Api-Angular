@@ -1,0 +1,49 @@
+<mat-toolbar class="navbar" color="primary">
+    <mat-toolbar-row>
+
+      <span class="brand">NoneKnows</span>
+  
+      <!-- Search Bar -->
+      <!-- <mat-form-field>
+        <mat-icon color="primary" matPrefix>search</mat-icon>
+        <input matInput class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="onSearch()">
+      </mat-form-field> -->
+
+       <!-- Search Bar -->
+    <mat-form-field>
+      <mat-icon color="primary" matPrefix>search</mat-icon>
+      <input matInput class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="onSearch()" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let product of allProducts | filter: searchText" [value]="product.title">
+          <div class="product-suggestion" (click)="productDetail(product)" routerLink="productDetails">
+            <img [src]="product.thumbnail || product.images[0]" alt="{{ product.title }}" class="product-image">
+            <div class="product-info">
+              <strong>{{ product.title }}</strong>
+              <!-- with currency pipe it automatically adding the $ sign -->
+              <p>{{ product.price | currency }}</p>  
+            </div>
+          </div>
+        </mat-option>
+        <!-- the below code doesnt  -->
+        <mat-error *ngIf="(allProducts | filter: searchText).length === 0 && allProducts.length > 0">
+          <mat-icon mat-list-avatar>error</mat-icon>
+          <div mat-line>0 results</div>
+          <div mat-line>No matching products</div>
+        </mat-error>
+      </mat-autocomplete>
+    </mat-form-field>
+  
+      <!-- Category Selector -->
+      <mat-form-field>
+        <mat-label>Select Category</mat-label>
+        <mat-select (selectionChange)="onSelectionChange($event)">
+          <mat-option value="https://dummyjson.com/products">All</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.url">{{ category.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Cart Icon -->
+      <mat-icon matBadge="" matBadgePosition="above after" >shopping_cart</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  

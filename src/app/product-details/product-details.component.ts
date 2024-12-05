@@ -6,6 +6,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { TagModule } from 'primeng/tag'
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import { RouterModule } from '@angular/router';
+import { FilterPipe } from "../pipe/filter.pipe"; 
 
 @Component({
   selector: 'app-product-details',
@@ -16,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     TagModule,
     FormsModule,
-    
+    MatCardModule,
+    RouterModule,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
@@ -24,19 +28,18 @@ import { FormsModule } from '@angular/forms';
 export class ProductDetailsComponent {
   productDetails : any;
   products: any[] = [];
+  searchText : string = ''
   responsiveOptions: any[] | undefined;
-
-  paused = false;
-	unpauseOnArrow = false;
-	pauseOnIndicator = false;
-	pauseOnHover = true;
-	pauseOnFocus = true;
-
 
   constructor(private ApiDataService: ApiDataService){ }
 
   ngOnInit() : void{
-    this.ApiDataService.productDetails$.subscribe(data => this.productDetails = data)
+    this.ApiDataService.newSearch$.subscribe(text => {
+      if(text != null){
+        this.searchText = text
+      }
+      }),
+    this.ApiDataService.productDetails$.subscribe(data => this.productDetails = data),
     this.ApiDataService.product$.subscribe((data) => {
       if (data !=null){
         this.products = Object.values(data)[0] as any // in this we have to provide the type or it wont work
@@ -81,5 +84,7 @@ export class ProductDetailsComponent {
     }
   }
   
-
+  productDetail(product:any){
+    this.ApiDataService.productDetail(product)
+  }
 }
