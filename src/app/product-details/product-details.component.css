@@ -81,6 +81,7 @@
 
   
 .product-card {
+  margin: 40px auto;
   width: 400px; /* Set fixed width */
   height: 400px; /* Set fixed height */
   display: flex;

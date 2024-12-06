@@ -56,3 +56,12 @@ mat-icon {
   margin: 0;
   color: #555;
 }
+
+.navbar a{
+  display: center;
+  color: white;
+  text-align: center;
+}
+.navbar a:hover{
+  background-color: bisque;
+}

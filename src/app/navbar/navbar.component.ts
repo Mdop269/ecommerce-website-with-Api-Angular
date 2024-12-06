@@ -66,7 +66,6 @@ export class NavbarComponent {
   onSearch(){
     this.ApiDataService.onSearch(this.searchText)
   }
-
   
   productDetail(product:any){
     this.ApiDataService.productDetail(product)
