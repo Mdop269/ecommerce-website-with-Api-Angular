@@ -59,7 +59,16 @@
             </ul>
           </ul>
         </div>
-        <button mat-flat-button (click)="addToCart()">Add to Cart</button>
+        <button mat-flat-button class="snipcart-add-item"
+        [attr.data-item-id]= productDetails.id
+        [attr.data-item-name]=productDetails.title
+        [attr.data-item-price]=productDetails.price
+        [attr.data-item-url]=productDetails.thumbnail
+        [attr.data-item-image]=productDetails.thumbnail
+        [attr.data-item-description]=productDetails.description>
+        Add to Cart
+        </button>
+
     </div>
 </div>
   
