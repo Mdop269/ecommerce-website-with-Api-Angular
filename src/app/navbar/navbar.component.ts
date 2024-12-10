@@ -56,10 +56,16 @@ export class NavbarComponent {
     this.ApiDataService.dataForAllProduct().subscribe((data) => {
       if (data != null) {
         this.allProducts = Object.values(data)[0];
+        this.addingAllProductToStorage()
       }
     });
   }
-
+  addingAllProductToStorage(){
+    // Load cart from localStorage if available
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('allProducts', JSON.stringify(this.allProducts))
+    }
+  }
   onSelectionChange(event: any): void {
     this.ApiDataService.setSelectedValue(event.value);
   }

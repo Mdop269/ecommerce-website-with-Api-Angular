@@ -2,10 +2,10 @@
 
   <div class="pagination-controls">
     <button mat-flat-button (click)="prevPage()" [disabled]="skip === 0">Previous</button>
-    <button mat-flat-button (click)="nextPage()" [disabled]="skip + limit >= totalProducts" >Next</button>
+    <button mat-flat-button (click)="nextPage()" [disabled]="skip + limit >= totalProducts">Next</button>
     <button mat-flat-button (click)="searchClose()" style="text-align: right;">Reset</button>
   </div>
-  
+
   <div class="page-info">
     <span>{{ getCurrentPageRange() }} of {{ totalProducts }}</span>
     <span>Page {{ getCurrentPageNumber() }} of {{ getTotalPages() }}</span>

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from "../pipe/filter.pipe"; 
+import { LocalstorageService } from '../service/localstorage.service';
 
 @Component({
   selector: 'app-product-details',
@@ -31,7 +32,7 @@ export class ProductDetailsComponent {
   searchText : string = ''
   responsiveOptions: any[] | undefined;
 
-  constructor(private ApiDataService: ApiDataService){ }
+  constructor(private ApiDataService: ApiDataService, private LocalstorageService: LocalstorageService){ }
 
   ngOnInit() : void{
     this.ApiDataService.newSearch$.subscribe(text => {
@@ -86,5 +87,9 @@ export class ProductDetailsComponent {
   
   productDetail(product:any){
     this.ApiDataService.productDetail(product)
+  }
+
+  addToCartButtonClicked(productDetails : any){
+    this.LocalstorageService.addToCartButtonClicked(productDetails)
   }
 }

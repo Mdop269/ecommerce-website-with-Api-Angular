@@ -2,20 +2,20 @@ import { Component, ElementRef, viewChild, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiDataService } from '../service/api-data.service';
 import { ProductComponent } from "../product/product.component";
-import {MatCardModule} from '@angular/material/card';
-import { FlexLayoutModule }from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule  } from '@angular/forms';
-import {MatListModule} from '@angular/material/list'
-import { FilterPipe } from "../pipe/filter.pipe"; 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatOption, MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatMenuModule} from '@angular/material/menu';
+import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list'
+import { FilterPipe } from "../pipe/filter.pipe";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOption, MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -35,8 +35,8 @@ import { ChangeDetectorRef } from '@angular/core';
     MatInputModule,
     MatPaginatorModule,
     MatMenuModule,
-    
-],
+
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -46,19 +46,19 @@ export class ProductsComponent {
 
   toggleSearch: boolean = false;
   limit: number = 10;
-  skip:number = 0;
+  skip: number = 0;
   totalProducts = 0;
   pageSizes = [5, 10, 15, 20];
 
   @ViewChild(MatOption, { static: false }) matOption!: MatOption;
 
-  constructor(private ApiDataService: ApiDataService) {}
+  constructor(private ApiDataService: ApiDataService) { }
 
   ngOnInit(): void {
     this.ApiDataService.product$.subscribe((data) => {
       if (data != null) {
         this.products = Object.values(data)[0] as any;
-        this.totalProducts = Object.values(data)[1] as any ;
+        this.totalProducts = Object.values(data)[1] as any;
       }
     });
   }
