@@ -65,3 +65,7 @@ ref :
     (this is better for search )
 
     https://primeng.org/carousel
+    (for slider )
+
+    for login ui 
+    (https://stackblitz.com/edit/angular-login-and-signup-form?file=src%2Fapp%2Fauth%2Flogin%2Flogin.component.html,src%2Fstyles.css)

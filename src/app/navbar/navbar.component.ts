@@ -10,7 +10,10 @@ import {MatInputModule} from '@angular/material/input';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FilterPipe } from "../pipe/filter.pipe";
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ApiToLocalstorageService } from '../service/api-to-localstorage.service';
+import { LocalstorageService } from '../service/localstorage.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -33,39 +36,34 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  isAuthenticated : boolean = true 
   categories: any = [];
   searchText : string = '';
   allProducts: any[] = [];
   products: any[] = [];
 
 
-  constructor(private ApiDataService: ApiDataService) { 
-    this.onSearch()
+  constructor(private ApiDataService: ApiDataService, private ApiToLocalstorageService : ApiToLocalstorageService, private router : Router, private LocalstorageService : LocalstorageService) { 
   }
   
 
   ngOnInit(): void {
     this.ApiDataService.dataForCategory().subscribe(data => this.categories = data);
-
+    this.ApiToLocalstorageService.allProduct$.subscribe(data => {
+      if (typeof data === 'object' && data !== null) {
+        this.allProducts = Object.values(data);
+      } else {
+        console.error('Data is not an object');
+      }
+    })
     this.ApiDataService.product$.subscribe((data) => {
       if (data != null) {
         this.products = Object.values(data)[0] as any;
       }
     });
 
-    this.ApiDataService.dataForAllProduct().subscribe((data) => {
-      if (data != null) {
-        this.allProducts = Object.values(data)[0];
-        this.addingAllProductToStorage()
-      }
-    });
   }
-  addingAllProductToStorage(){
-    // Load cart from localStorage if available
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('allProducts', JSON.stringify(this.allProducts))
-    }
-  }
+
   onSelectionChange(event: any): void {
     this.ApiDataService.setSelectedValue(event.value);
   }
@@ -74,7 +72,13 @@ export class NavbarComponent {
   }
   
   productDetail(product:any){
-    this.ApiDataService.productDetail(product)
+    this.ApiToLocalstorageService.productDetail(product)
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+    
   }
 
 

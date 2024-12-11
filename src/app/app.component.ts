@@ -10,7 +10,6 @@ import { CartsDetailComponent } from "./carts/carts-detail/carts-detail.componen
   selector: 'app-root',
   imports: [RouterOutlet, 
     NavbarComponent,
-    CartsDetailComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

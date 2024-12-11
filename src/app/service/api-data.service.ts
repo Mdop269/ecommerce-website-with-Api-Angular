@@ -10,22 +10,20 @@ export class ApiDataService {
   urlForCategory : string = "https://dummyjson.com/products/categories" 
   selectedValue : any = "https://dummyjson.com/products" ;
   limit : number = 10;
-  skip : number = 0
+  skip : number = 0;
+  allProducts: any[] = [];
 
   private product = new BehaviorSubject<any | null>(null);
   get product$(): Observable<string | null> {
     return this.product.asObservable(); 
   }
 
-  private productDetails = new BehaviorSubject<any | null>(null);
-  get productDetails$(): Observable<string | null> {
-    return this.productDetails.asObservable(); 
-  }
 
   private newSearch = new BehaviorSubject<string>("");
   get newSearch$(): Observable<string> {
     return this.newSearch.asObservable(); 
   }
+  
   
   constructor(private http:HttpClient) {
     this.fetchProductData()
@@ -68,13 +66,9 @@ export class ApiDataService {
     this.fetchProductData()
   }
 
-  productDetail(product:any){
-    this.productDetails.next(product)
-  }
 
   onSearch(newText : string){
     this.newSearch.next(newText)
   }
-
 
 }

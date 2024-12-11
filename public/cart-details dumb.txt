@@ -4,13 +4,12 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome'
 import { LocalstorageService } from '../../service/localstorage.service';
 import { ApiToLocalstorageService } from '../../service/api-to-localstorage.service';
-import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-carts-detail',
   imports: [
-    FontAwesomeModule,
-],
+    FontAwesomeModule
+  ],
   templateUrl: './carts-detail.component.html',
   styleUrl: './carts-detail.component.css'
 })
@@ -21,8 +20,7 @@ export class CartsDetailComponent {
   allProducts : any[] = [];
   constructor(private LocalstorageService: LocalstorageService, 
     private ApiDataService: ApiDataService, 
-    private ApiToLocalstorageService : ApiToLocalstorageService ,
-  ){
+    private ApiToLocalstorageService : ApiToLocalstorageService){
   }
 
   // in this whatever data we got from the cart we will store it in the array 
@@ -31,7 +29,7 @@ export class CartsDetailComponent {
       if (typeof data === 'object' && data !== null) {
         this.allProducts = Object.values(data);
       } else {
-        console.log('Data is not an object');
+        console.error('Data is not an object');
       }
     })
     this.LocalstorageService.SendDataToCart$.subscribe((data) => {
@@ -60,7 +58,7 @@ export class CartsDetailComponent {
         this.ApiToLocalstorageService.saveAllProducts([...this.allProducts]); // Save a copy
       }
     }
-    this.LocalstorageService.saveCart([...this.cartForQuantity]); // Save a copy
+    this.LocalstorageService.saveProducts([...this.cartForQuantity]); // Save a copy
   }
   
   plus(cart: any): void {
@@ -72,8 +70,7 @@ export class CartsDetailComponent {
         console.log(existingProduct)
         this.ApiToLocalstorageService.saveAllProducts([...this.allProducts]); // Save a copy
       }
-      this.LocalstorageService.saveCart([...this.cartForQuantity]); // Save a copy
+      this.LocalstorageService.saveProducts([...this.cartForQuantity]); // Save a copy
     }
   }
 }
-

@@ -21,14 +21,32 @@ export class LocalstorageService {
 
   constructor() {
     // Load cart from localStorage if available
+    // if (typeof window !== 'undefined' && window.localStorage) {
+    //   const savedCarts = localStorage.getItem('carts');
+    //   if (savedCarts) {
+    //     this.cartForQuantity = JSON.parse(savedCarts);
+    //     this.SendDataToCart.next(this.cartForQuantity); 
+    //   }
+    // }
+    this.loadCart()
+  }
+
+  loadCart() {
     if (typeof window !== 'undefined' && window.localStorage) {
-      const savedCarts = localStorage.getItem('carts');
-      if (savedCarts) {
-        this.cartForQuantity = JSON.parse(savedCarts);
-        this.SendDataToCart.next(this.cartForQuantity); 
-      }
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find((u: any) => u.email === currentUser.email);
+
+    if (user) {
+      this.cartForQuantity = user.cart || [];
+      this.SendDataToCart.next(this.cartForQuantity); 
+    }
     }
   }
+  
+
+  
+
 
   addToCartButtonClicked(CartProduct : any){
     // in this the argument which we got from the catalog component we are displaying the value of it 
@@ -53,12 +71,23 @@ export class LocalstorageService {
         });
       }
 
-    this.saveProducts(this.cartForQuantity)
+    this.saveCart(this.cartForQuantity)
   }
 
-  saveProducts(updatedProducts: any[]) {
-    this.cartForQuantity = updatedProducts; 
-    localStorage.setItem('carts', JSON.stringify(updatedProducts));
-    this.SendDataToCart.next(updatedProducts); 
+  saveCart(updatedProducts: any[]) {
+    this.cartForQuantity = updatedProducts
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex((u: any) => u.email === currentUser.email);
+
+    if (userIndex !== -1) {
+      users[userIndex].cart = this.cartForQuantity;
+      localStorage.setItem('users', JSON.stringify(users));
+      this.SendDataToCart.next(updatedProducts); 
+    }
   }
+
+  // authenticated(isauthenticated : boolean){
+  //   isauthenticated 
+  // }
 }

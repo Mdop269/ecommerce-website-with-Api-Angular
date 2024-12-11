@@ -10,6 +10,8 @@ import {MatCardModule} from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from "../pipe/filter.pipe"; 
 import { LocalstorageService } from '../service/localstorage.service';
+import { ApiToLocalstorageService } from '../service/api-to-localstorage.service';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-product-details',
@@ -22,7 +24,7 @@ import { LocalstorageService } from '../service/localstorage.service';
     FormsModule,
     MatCardModule,
     RouterModule,
-  ],
+],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -31,16 +33,24 @@ export class ProductDetailsComponent {
   products: any[] = [];
   searchText : string = ''
   responsiveOptions: any[] | undefined;
-
-  constructor(private ApiDataService: ApiDataService, private LocalstorageService: LocalstorageService){ }
+  allProducts : any[] = []
+  constructor(private ApiDataService: ApiDataService, private LocalstorageService: LocalstorageService, private ApiToLocalstorageService : ApiToLocalstorageService){ }
 
   ngOnInit() : void{
     this.ApiDataService.newSearch$.subscribe(text => {
-      if(text != null){
-        this.searchText = text
-      }
+        if(text != null){
+          this.searchText = text
+        }
       }),
-    this.ApiDataService.productDetails$.subscribe(data => this.productDetails = data),
+      this.ApiToLocalstorageService.allProduct$.subscribe(data => {
+        if (typeof data === 'object' && data !== null) {
+          this.allProducts = Object.values(data);
+        } else {
+          console.error('Data is not an object');
+        }
+        
+      })
+    this.ApiToLocalstorageService.productDetails$.subscribe(data => this.productDetails = data),
     this.ApiDataService.product$.subscribe((data) => {
       if (data !=null){
         this.products = Object.values(data)[0] as any // in this we have to provide the type or it wont work
@@ -86,10 +96,17 @@ export class ProductDetailsComponent {
   }
   
   productDetail(product:any){
-    this.ApiDataService.productDetail(product)
+    this.ApiToLocalstorageService.productDetail(product)
   }
 
   addToCartButtonClicked(productDetails : any){
     this.LocalstorageService.addToCartButtonClicked(productDetails)
+    if (productDetails.stock >= 1) {
+    const existingProduct = this.allProducts.find(item => item.id === productDetails.id);     
+      if (existingProduct) {
+        existingProduct.stock -= 1;
+        this.ApiToLocalstorageService.saveAllProducts([...this.allProducts]); // Save a copy
+      }
+    }
   }
 }

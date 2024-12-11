@@ -6,6 +6,7 @@ import { ApiDataService } from '../service/api-data.service';
 import { RouterModule } from '@angular/router';
 import { TagModule } from 'primeng/tag'
 import { FormsModule, NgModel  } from '@angular/forms';
+import { ApiToLocalstorageService } from '../service/api-to-localstorage.service';
 
 @Component({
   selector: 'app-product',
@@ -23,7 +24,7 @@ import { FormsModule, NgModel  } from '@angular/forms';
 export class ProductComponent {
   @Input() product: any;
 
-  constructor(private ApiDataService: ApiDataService){
+  constructor(private ApiDataService: ApiDataService, private ApiToLocalstorageService : ApiToLocalstorageService){
 
   }
   getDiscountedPrice(product:any){
@@ -37,7 +38,7 @@ export class ProductComponent {
   }
 
   productDetail(product:any){
-    this.ApiDataService.productDetail(product)
+    this.ApiToLocalstorageService.productDetail(product)
   }
   
   getSeverity(status: string) {

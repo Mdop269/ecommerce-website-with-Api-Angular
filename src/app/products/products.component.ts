@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { ChangeDetectorRef } from '@angular/core';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-products',
@@ -35,8 +36,7 @@ import { ChangeDetectorRef } from '@angular/core';
     MatInputModule,
     MatPaginatorModule,
     MatMenuModule,
-
-  ],
+],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
