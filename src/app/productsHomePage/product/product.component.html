@@ -1,3 +1,4 @@
+<!-- if some click on the product details it will redirect to the product details component and the function will also be run  -->
 <div class="product-list" (click)="productDetail(product)" [routerLink]="['/productDetails']">
     <mat-card class="product-card">
       <mat-card-header>
@@ -10,7 +11,7 @@
         </div>
         <p>{{ product.description }}</p>
   
-        <!-- Inventory Status -->
+        <!-- Inventory Status  this is primeNg tag for showing Status -->
         <p-tag
           [value]="product.availabilityStatus"
           [severity]="getSeverity(product.availabilityStatus)"
@@ -32,6 +33,14 @@
   
         <!-- Rating -->
         <div class="rating">
+          <!-- in this we are showing the rating  
+          For eg :
+              The getRating(0) function would return true, because 0 is less than 3.5.
+              The getRating(1) function would return true, because 1 is less than 3.5.
+              The getRating(2) function would return true, because 2 is less than 3.5.
+              The getRating(3) function would return false, because 3 is not less than 3.5.
+              The getRating(4) function would return false, because 4 is not less than 3.5. 
+          -->
           <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
             <span class="star">
               <span *ngIf="getRating(i)" class="filled-star">★</span>
@@ -41,9 +50,6 @@
           <span *ngIf="product.rating">({{ product.rating }})</span>
         </div>
       </mat-card-content>
-      <!-- <mat-card-actions>
-          <button mat-button>Add to Cart</button>
-      </mat-card-actions> -->
     </mat-card>
   </div>
   

@@ -15,6 +15,8 @@ import { NavbarComponent } from "../../navbar/navbar.component";
   styleUrl: './carts-detail.component.css'
 })
 export class CartsDetailComponent {
+
+  
   faMinus = faMinus;
   faPlus = faPlus;
   cartForQuantity : any[] = [];

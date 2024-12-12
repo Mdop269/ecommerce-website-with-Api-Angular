@@ -1,7 +1,19 @@
-
+<!-- this should have in new component i have added all in one  -->
 <div class="product-container">
     <!-- Carousel Section -->
-     <!--dont forget to add circular or it will show a bad circle and showindicitaror to true also   -->
+     <!--dont forget to add circular or it will show a bad circle and showindicitaror to true also  
+     *ngIf="productDetails.images.length > 1" : if the length is more then one then only it go through or it will bug out in one image 
+     [value]="productDetails.images" : as it is a slider so only image we will pass 
+     [numVisible]="1" : How many pic should be Visible 
+     [numScroll]="1" : with this we are deciding how much you should be able to scroll means if we do 2 it will provide 2 new image 
+     [autoplayInterval]="3000" : for auto playing the 3000 is milliSeconds 
+     orientation="horizontal" : how you need to define horizontal or vertical
+     [circular]="false" : it will give black dot if we made it true and default is true 
+      [showIndicators]="true"> : we can go directly through the product 
+
+
+     -->
+
     <div class="carousel-container">
       <p-carousel
         *ngIf="productDetails.images.length > 1"
@@ -66,7 +78,8 @@
 
     </div>
 </div>
-  
+ 
+<!--  this is for displaying all th product so user can check from this also  -->
 <div class="card">
     <p-carousel 
         [value]="products" 

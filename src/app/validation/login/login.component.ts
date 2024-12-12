@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule  } from '@angular/forms';
-import { LocalstorageService } from '../service/localstorage.service';
+import { LocalstorageService } from '../../service/localstorage.service';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',

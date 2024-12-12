@@ -1,6 +1,6 @@
 import { Component, ElementRef, viewChild, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiDataService } from '../service/api-data.service';
+import { ApiDataService } from '../../service/api-data.service';
 import { ProductComponent } from "../product/product.component";
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -9,7 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list'
-import { FilterPipe } from "../pipe/filter.pipe";
+import { FilterPipe } from "../../pipe/filter.pipe";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOption, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { ChangeDetectorRef } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-products',
@@ -43,8 +43,6 @@ import { NavbarComponent } from "../navbar/navbar.component";
 export class ProductsComponent {
 
   products: any[] = [];
-
-  toggleSearch: boolean = false;
   limit: number = 10;
   skip: number = 0;
   totalProducts = 0;
@@ -55,35 +53,40 @@ export class ProductsComponent {
   constructor(private ApiDataService: ApiDataService) { }
 
   ngOnInit(): void {
+    // we are getting the product from the service through the Behaviour Subject 
     this.ApiDataService.product$.subscribe((data) => {
       if (data != null) {
+        // we have to write this as the data is inside one more array and with any we are giving the datatype 
         this.products = Object.values(data)[0] as any;
+        // in the second property there is total product which we are passing in to the var 
         this.totalProducts = Object.values(data)[1] as any;
       }
     });
   }
 
   searchClose() {
-    this.toggleSearch = false;
+// whenever the reset button is click the old value has been passed through 
     this.limit = 10;
     this.skip = 0
+    // in setselected value functio the api fetching will work and as we are resetting we have to passs the parametere
     this.ApiDataService.setSelectedValue('https://dummyjson.com/products');
-  }
-
-  onSelectionChange(event: any): void {
-    this.ApiDataService.setSelectedValue(event.value);
   }
 
   // Pagination logic
   nextPage(): void {
+    // in this we are checking skip and limit total is less then the actual total if yes then only it should work  
     if (this.skip + this.limit < this.totalProducts) {
+      // as because we are changing to then next page so the current skip will be added to the 10 and the limit will be the same as we are displaing limited product 
       this.skip += this.limit;
+      // in the below function we are passing the limit and skip with which we will pass to the service 
       this.ApiDataService.setLimitAndSkip(this.limit, this.skip);
     }
   }
 
   prevPage(): void {
+    // if the  skip is greater then 0 then only it should work 
     if (this.skip > 0) {
+      // in this as we are going behind we will minus from the this.limit 
       this.skip -= this.limit;
       this.ApiDataService.setLimitAndSkip(this.limit, this.skip);
     }

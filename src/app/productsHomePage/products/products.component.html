@@ -1,9 +1,12 @@
 
 <div class="eaton mat-typography" style="overflow-x: hidden;">
-
+<!-- whenever we click on the button the function gets called  the disabled also have queries -->
   <div class="pagination-controls">
+    <!-- in this disabled if the skip value is 0 it shouldnt let click the button -->
     <button mat-flat-button (click)="prevPage()" [disabled]="skip === 0">Previous</button>
+    <!-- in this disabled if the skip value is greater then the total product it shouldnt let click the button -->
     <button mat-flat-button (click)="nextPage()" [disabled]="skip + limit >= totalProducts">Next</button>
+    <!--  it is a reset button it should display the main Ui -->
     <button mat-flat-button (click)="searchClose()" style="text-align: right;">Reset</button>
   </div>
 
@@ -15,7 +18,9 @@
   <!-- Page size selector -->
   <div class="page-size-selector">
     <label for="pageSize">Items per page:</label>
+    <!-- in this When the select element's value changes, the limit property is updated -->
     <select id="pageSize" [(ngModel)]=limit (change)="onPageSizeChange(limit)">
+      <!-- in this the value in binding the current value of the limit -->
       <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
     </select>
   </div>
@@ -23,6 +28,7 @@
   <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="16px" fxLayoutAlign="space-around center">
     <!-- fxFlex="calc(33.33% - 16px)" this is use for giving maaximum showing of product -->
     <ul *ngFor="let p of products">
+      <!-- in here i am passing all the data through input  -->
       <app-product [product]="p"></app-product>
     </ul>
   </div>
