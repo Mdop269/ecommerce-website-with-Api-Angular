@@ -1,3 +1,4 @@
+<!-- the query is not completed yet -->
 @if(isAuthenticated){
   <mat-toolbar class="navbar" color="primary">
     <mat-toolbar-row>
@@ -11,10 +12,14 @@
         <!-- Search Bar -->
     <mat-form-field>
       <mat-icon color="primary" matPrefix>search</mat-icon>
-      <input matInput class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="onSearch()" [matAutocomplete]="auto">
+      <!-- in ngmodel whenever someone search anthing it will start working as NgModel is 2 way Binding the AutoComplete is a angular material which will help in showing the product whenever we search-->
+      <input matInput class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText"  [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
+        <!-- it is showing the all the product in here and Filter is a pipe in which whatever we write it will show the Value  -->
         <mat-option *ngFor="let product of allProducts | filter: searchText" [value]="product.title">
+          <!-- if someone click it will redirect to the product detail page  -->
           <div class="product-suggestion" (click)="productDetail(product)" routerLink="productDetails">
+            <!-- in this we are showing the thumbnail -->
             <img [src]="product.thumbnail || product.images[0]" alt="{{ product.title }}" class="product-image">
             <div class="product-info">
               <strong>{{ product.title }}</strong>
@@ -23,7 +28,7 @@
             </div>
           </div>
         </mat-option>
-        <!-- the below code doesnt  -->
+        <!-- the below code doesnt But this is not working properly -->
         <mat-error *ngIf="(allProducts | filter: searchText).length === 0 && allProducts.length > 0">
           <mat-icon mat-list-avatar>error</mat-icon>
           <div mat-line>0 results</div>
@@ -35,8 +40,11 @@
       <!-- Category Selector -->
       <mat-form-field>
         <mat-label>Select Category</mat-label>
+        <!-- whenever the event happens the fucntion will work  -->
         <mat-select (selectionChange)="onSelectionChange($event)">
+          <!-- we have to provide all with default  -->
           <mat-option value="https://dummyjson.com/products">All</mat-option>
+          <!-- in the categories array we have used api we are fetching the Data from there and storing in to array and then displaying it  -->
           <mat-option *ngFor="let category of categories" [value]="category.url">{{ category.name }}</mat-option>
         </mat-select>
       </mat-form-field>
